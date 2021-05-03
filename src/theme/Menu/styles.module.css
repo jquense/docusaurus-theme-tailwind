@@ -1,0 +1,29 @@
+.menu .menu {
+  @apply ml-3;
+}
+
+.menuItem {
+  padding: theme("spacing.1") theme("spacing.3");
+}
+
+.menuItemSublist {
+  position: relative;
+  padding-right: calc(theme("spacing.3") + 1.25rem);
+}
+
+.menuItemSublist::after {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 24 24"><path fill="rgba(0,0,0,0.5)" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"></path></svg>')
+    50%/2rem 2rem;
+  content: " ";
+  height: 1.25rem;
+  position: absolute;
+  right: 1rem;
+  top: 0.375rem;
+  transform: rotate(180deg);
+  width: 1.25rem;
+  transition: transform 250ms linear;
+}
+
+.collapsed::after {
+  transform: rotate(90deg);
+}

@@ -1,0 +1,63 @@
+{
+  "name": "docusaurus-theme-tailwind",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "lint": "4c lint src",
+    "build": "4c build",
+    "prepublishOnly": "4c build src"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*": "4c lint --fix"
+  },
+  "prettier": {
+    "singleQuote": false
+  },
+  "peerDependencies": {
+    "postcss": "^8.2.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  },
+  "devDependencies": {
+    "@4c/cli": "^2.2.2",
+    "@4c/start": "^2.4.1",
+    "@4c/tsconfig": "^0.3.1",
+    "@babel/core": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
+    "@babel/preset-typescript": "^7.13.0",
+    "@docusaurus/module-type-aliases": "^2.0.0-alpha.74",
+    "@types/prismjs": "^1.16.2",
+    "@typescript-eslint/eslint-plugin": "^4.20.0",
+    "@typescript-eslint/parser": "^4.20.0",
+    "babel-preset-env-modules": "^1.0.1",
+    "eslint": "^7.24.0",
+    "eslint-config-4catalyzer-typescript": "^3.0.3",
+    "eslint-config-jason": "^8.1.1",
+    "eslint-config-prettier": "^8.2.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-react": "^7.23.1",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "hookem": "^1.0.2",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^2.1.1",
+    "typescript": "^4.2.4"
+  },
+  "dependencies": {
+    "@docusaurus/theme-common": "2.0.0-alpha.74",
+    "@docusaurus/types": "2.0.0-alpha.74",
+    "@docusaurus/utils": "2.0.0-alpha.74",
+    "@tailwindcss/typography": "^0.4.0",
+    "@types/node": "^14.14.41",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "clsx": "^1.1.1",
+    "postcss": "^8.2.10"
+  }
+}
