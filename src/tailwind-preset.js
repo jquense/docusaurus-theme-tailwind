@@ -22,6 +22,11 @@ module.exports = {
 
     extend: {
       minWidth: (t) => t("width"),
+
+      screens: {
+        print: { raw: "print" },
+      },
+
       transitionProperty: {
         width: "width",
         visibility: "opacity, visibility",
@@ -35,16 +40,17 @@ module.exports = {
         },
         surface: colors.white,
         emphasis: colors.gray,
-        warning: colors.orange,
+        warning: colors.amber,
         info: colors.cyan,
         danger: colors.red,
         overlay: "rgba(0, 0, 0, 0.05)",
         inherit: "inherit",
       },
 
-      typography: {
+      typography: (theme) => ({
         DEFAULT: {
           css: {
+            maxWidth: "unset",
             a: {
               textDecoration: "none",
               "&:hover": {
@@ -54,9 +60,25 @@ module.exports = {
             strong: {
               color: "unset",
             },
+
+            code: {
+              color: theme("colors.gray.900", colors.gray[900]),
+              fontSize: "90%",
+              fontWeight: "normal",
+              border: "0.1rem solid rgba(0, 0, 0, 0.1)",
+              borderRadius: theme("borderRadius.DEFAULT"),
+              padding: ".1rem .3rem",
+              background: "rgba(0, 0, 0, .05)",
+            },
+            "code::before": {
+              content: "",
+            },
+            "code::after": {
+              content: "",
+            },
           },
         },
-      },
+      }),
     },
   },
   variants: {

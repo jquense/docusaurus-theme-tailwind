@@ -13,7 +13,7 @@ type ElementType<
 function createStyledElement<
   E extends keyof JSX.IntrinsicElements,
   R = ElementType<E>
->(tag: E, className: string) {
+>(tag: E, { className }: { className: string }) {
   const Component = React.forwardRef<R>(
     (props: React.ComponentProps<E>, ref) => {
       const Tag: any = tag;

@@ -12,6 +12,7 @@ module.exports = () => {
             "react/jsx-runtime": require.resolve("react/jsx-runtime"),
             "react-dom$": require.resolve("react-dom"),
             "react-dom/server": require.resolve("react-dom/server"),
+            "@mdx-js/react": require.resolve("@mdx-js/react/dist/esm"),
           },
         },
       };

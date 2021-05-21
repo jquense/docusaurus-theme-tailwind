@@ -15,7 +15,6 @@ import TOC from "@theme/TOC";
 import EditThisPage from "@theme/EditThisPage";
 
 import clsx from "clsx";
-import styles from "./styles.module.css";
 import {
   useActivePlugin,
   useVersions,
@@ -58,18 +57,20 @@ function DocItem(props: Props): JSX.Element {
       <div className="flex w-full">
         <div className={clsx("pr-4", !hideTableOfContents && "lg:w-3/4")}>
           <DocVersionSuggestions />
-          <div className={styles.docItemContainer}>
+          <div className="mx-auto px-2">
             <article>
               {showVersionBadge && (
                 <div>
-                  <span className="badge badge--secondary">
+                  <span className="text-sm rounded bg-emphasis-200 px-2 py-0.5 font-semibold">
                     Version: {version.label}
                   </span>
                 </div>
               )}
               {!hideTitle && (
                 <header>
-                  <h1 className={styles.docTitle}>{title}</h1>
+                  <h1 className="text-5xl leading-relaxed mb-4 font-bold">
+                    {title}
+                  </h1>
                 </header>
               )}
               <div className="markdown prose prose-primary">

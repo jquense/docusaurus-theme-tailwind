@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, { ReactNode, useState, useCallback } from "react";
+import { ReactNode, useState, useCallback } from "react";
 import { MDXProvider } from "@mdx-js/react";
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -18,6 +18,7 @@ import NotFound from "@theme/NotFound";
 import type { DocumentRoute } from "@theme/DocItem";
 import type { Props } from "@theme/DocPage";
 import IconArrow from "@theme/IconArrow";
+// @ts-expect-error
 import { matchPath } from "@docusaurus/router";
 import { translate } from "@docusaurus/Translate";
 

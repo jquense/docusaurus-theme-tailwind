@@ -5,16 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
-import useDocusaurusContext from '@docusaurus/useDocusaurusContext';
-import Link from '@docusaurus/Link';
-import Translate from '@docusaurus/Translate';
+import React from "react";
+import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Link from "@docusaurus/Link";
+import Translate from "@docusaurus/Translate";
 import {
   useActivePlugin,
   useActiveVersion,
   useDocVersionSuggestions,
-} from '@theme/hooks/useDocs';
-import {useDocsPreferredVersion} from '@docusaurus/theme-common';
+} from "@theme/hooks/useDocs";
+import { useDocsPreferredVersion } from "@docusaurus/theme-common";
 
 function UnreleasedVersionLabel({
   siteTitle,
@@ -30,9 +30,10 @@ function UnreleasedVersionLabel({
       values={{
         siteTitle,
         versionLabel: <strong>{versionLabel}</strong>,
-      }}>
+      }}
+    >
       {
-        'This is unreleased documentation for {siteTitle} {versionLabel} version.'
+        "This is unreleased documentation for {siteTitle} {versionLabel} version."
       }
     </Translate>
   );
@@ -52,9 +53,10 @@ function UnmaintainedVersionLabel({
       values={{
         siteTitle,
         versionLabel: <strong>{versionLabel}</strong>,
-      }}>
+      }}
+    >
       {
-        'This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained.'
+        "This is documentation for {siteTitle} {versionLabel}, which is no longer actively maintained."
       }
     </Translate>
   );
@@ -77,18 +79,24 @@ function LatestVersionSuggestionLabel({
         versionLabel,
         latestVersionLink: (
           <strong>
-            <Link to={to} onClick={onClick}>
+            <Link
+              to={to}
+              onClick={onClick}
+              className="text-white hover:white underline"
+            >
               <Translate
                 id="theme.docs.versions.latestVersionLinkLabel"
-                description="The label used for the latest version suggestion link label">
+                description="The label used for the latest version suggestion link label"
+              >
                 latest version
               </Translate>
             </Link>
           </strong>
         ),
-      }}>
+      }}
+    >
       {
-        'For up-to-date documentation, see the {latestVersionLink} ({versionLabel}).'
+        "For up-to-date documentation, see the {latestVersionLink} ({versionLabel})."
       }
     </Translate>
   );
@@ -99,11 +107,11 @@ const getVersionMainDoc = (version) =>
 
 function DocVersionSuggestions(): JSX.Element {
   const {
-    siteConfig: {title: siteTitle},
+    siteConfig: { title: siteTitle },
   } = useDocusaurusContext();
-  const {pluginId} = useActivePlugin({failfast: true});
+  const { pluginId } = useActivePlugin({ failfast: true });
 
-  const {savePreferredVersionName} = useDocsPreferredVersion(pluginId);
+  const { savePreferredVersionName } = useDocsPreferredVersion(pluginId);
 
   const activeVersion = useActiveVersion(pluginId);
   const {
@@ -122,9 +130,9 @@ function DocVersionSuggestions(): JSX.Element {
     latestDocSuggestion ?? getVersionMainDoc(latestVersionSuggestion);
 
   return (
-    <div className="alert alert--warning margin-bottom--md" role="alert">
+    <div className="rounded-lg text-white bg-warning-500 mb-4 p-4" role="alert">
       <div>
-        {activeVersion.name === 'current' ? (
+        {activeVersion.name === "current" ? (
           <UnreleasedVersionLabel
             siteTitle={siteTitle}
             versionLabel={activeVersion.label}
@@ -136,7 +144,7 @@ function DocVersionSuggestions(): JSX.Element {
           />
         )}
       </div>
-      <div className="margin-top--md">
+      <div className="mt-4">
         <LatestVersionSuggestionLabel
           versionLabel={latestVersionSuggestion.label}
           to={latestVersionSuggestedDoc.path}

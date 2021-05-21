@@ -5,12 +5,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 
 function useTOCHighlight(
   linkClassName: string,
   linkActiveClassName: string,
-  topOffset: number,
+  topOffset: number
 ): void {
   const [lastActiveLink, setLastActiveLink] = useState<
     HTMLAnchorElement | undefined
@@ -20,11 +20,11 @@ function useTOCHighlight(
     function setActiveLink() {
       function getActiveHeaderAnchor(): Element | null {
         const headersAnchors: Element[] = Array.from(
-          document.getElementsByClassName('anchor'),
+          document.getElementsByClassName("anchor")
         );
 
         const firstAnchorUnderViewportTop = headersAnchors.find((anchor) => {
-          const {top} = anchor.getBoundingClientRect();
+          const { top } = anchor.getBoundingClientRect();
           return top >= topOffset;
         });
 
@@ -60,20 +60,24 @@ function useTOCHighlight(
 
         // @ts-expect-error: Must be <a> tags.
         const links: HTMLCollectionOf<HTMLAnchorElement> = document.getElementsByClassName(
-          linkClassName,
+          linkClassName
         );
         while (index < links.length && !itemHighlighted) {
           const link = links[index];
-          const {href} = link;
+          const { href } = link;
           const anchorValue = decodeURIComponent(
-            href.substring(href.indexOf('#') + 1),
+            href.substring(href.indexOf("#") + 1)
           );
 
           if (activeHeaderAnchor.id === anchorValue) {
+            const activeClasses = linkActiveClassName
+              .split(" ")
+              .map((c) => c.trim());
             if (lastActiveLink) {
-              lastActiveLink.classList.remove(linkActiveClassName);
+              lastActiveLink.classList.remove(...activeClasses);
             }
-            link.classList.add(linkActiveClassName);
+            link.classList.add(...activeClasses);
+
             setLastActiveLink(link);
             itemHighlighted = true;
           }
@@ -83,14 +87,14 @@ function useTOCHighlight(
       }
     }
 
-    document.addEventListener('scroll', setActiveLink);
-    document.addEventListener('resize', setActiveLink);
+    document.addEventListener("scroll", setActiveLink);
+    document.addEventListener("resize", setActiveLink);
 
     setActiveLink();
 
     return () => {
-      document.removeEventListener('scroll', setActiveLink);
-      document.removeEventListener('resize', setActiveLink);
+      document.removeEventListener("scroll", setActiveLink);
+      document.removeEventListener("resize", setActiveLink);
     };
   });
 }

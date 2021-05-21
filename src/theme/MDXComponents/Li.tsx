@@ -1,3 +1,3 @@
 import createStyledElement from "./createStyledElement";
 
-export default createStyledElement("li", "");
+export default createStyledElement("li", { className: "" });

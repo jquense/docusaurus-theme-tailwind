@@ -5,81 +5,81 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, {useEffect, useState, useRef} from 'react';
-import clsx from 'clsx';
-import Highlight, {defaultProps, Language} from 'prism-react-renderer';
-import copy from 'copy-text-to-clipboard';
-import rangeParser from 'parse-numeric-range';
-import usePrismTheme from '@theme/hooks/usePrismTheme';
-import type {Props} from '@theme/CodeBlock';
-import Translate, {translate} from '@docusaurus/Translate';
+import React, { useEffect, useState, useRef } from "react";
+import clsx from "clsx";
+import Highlight, { defaultProps, Language } from "prism-react-renderer";
+import copy from "copy-text-to-clipboard";
+import rangeParser from "parse-numeric-range";
+import usePrismTheme from "@theme/hooks/usePrismTheme";
+import type { Props } from "@theme/CodeBlock";
+import Translate, { translate } from "@docusaurus/Translate";
 
-import styles from './styles.module.css';
+import styles from "./styles.module.css";
 
-import {useThemeConfig, parseCodeBlockTitle} from '@docusaurus/theme-common';
+import { useThemeConfig, parseCodeBlockTitle } from "@docusaurus/theme-common";
 
 const highlightLinesRangeRegex = /{([\d,-]+)}/;
 const getHighlightDirectiveRegex = (
-  languages = ['js', 'jsBlock', 'jsx', 'python', 'html'],
+  languages = ["js", "jsBlock", "jsx", "python", "html"]
 ) => {
   // supported types of comments
   const comments = {
     js: {
-      start: '\\/\\/',
-      end: '',
+      start: "\\/\\/",
+      end: "",
     },
     jsBlock: {
-      start: '\\/\\*',
-      end: '\\*\\/',
+      start: "\\/\\*",
+      end: "\\*\\/",
     },
     jsx: {
-      start: '\\{\\s*\\/\\*',
-      end: '\\*\\/\\s*\\}',
+      start: "\\{\\s*\\/\\*",
+      end: "\\*\\/\\s*\\}",
     },
     python: {
-      start: '#',
-      end: '',
+      start: "#",
+      end: "",
     },
     html: {
-      start: '<!--',
-      end: '-->',
+      start: "<!--",
+      end: "-->",
     },
   };
   // supported directives
   const directives = [
-    'highlight-next-line',
-    'highlight-start',
-    'highlight-end',
-  ].join('|');
+    "highlight-next-line",
+    "highlight-start",
+    "highlight-end",
+  ].join("|");
   // to be more reliable, the opening and closing comment must match
   const commentPattern = languages
     .map(
       (lang) =>
-        `(?:${comments[lang].start}\\s*(${directives})\\s*${comments[lang].end})`,
+        `(?:${comments[lang].start}\\s*(${directives})\\s*${comments[lang].end})`
     )
-    .join('|');
+    .join("|");
   // white space is allowed, but otherwise it should be on it's own line
   return new RegExp(`^\\s*(?:${commentPattern})\\s*$`);
 };
 // select comment styles based on language
 const highlightDirectiveRegex = (lang) => {
   switch (lang) {
-    case 'js':
-    case 'javascript':
-    case 'ts':
-    case 'typescript':
-      return getHighlightDirectiveRegex(['js', 'jsBlock']);
+    case "js":
+    case "javascript":
+    case "ts":
+    case "typescript":
+      return getHighlightDirectiveRegex(["js", "jsBlock"]);
 
-    case 'jsx':
-    case 'tsx':
-      return getHighlightDirectiveRegex(['js', 'jsBlock', 'jsx']);
+    case "jsx":
+    case "tsx":
+      return getHighlightDirectiveRegex(["js", "jsBlock", "jsx"]);
 
-    case 'html':
-      return getHighlightDirectiveRegex(['js', 'jsBlock', 'html']);
+    case "html":
+      return getHighlightDirectiveRegex(["js", "jsBlock", "html"]);
 
-    case 'python':
-    case 'py':
-      return getHighlightDirectiveRegex(['python']);
+    case "python":
+    case "py":
+      return getHighlightDirectiveRegex(["python"]);
 
     default:
       // all comment types
@@ -93,7 +93,7 @@ export default function CodeBlock({
   metastring,
   title,
 }: Props): JSX.Element {
-  const {prism} = useThemeConfig();
+  const { prism } = useThemeConfig();
 
   const [showCopied, setShowCopied] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -119,7 +119,7 @@ export default function CodeBlock({
   const prismTheme = usePrismTheme();
 
   // In case interleaved Markdown (e.g. when using CodeBlock as standalone component).
-  const content = Array.isArray(children) ? children.join('') : children;
+  const content = Array.isArray(children) ? children.join("") : children;
 
   if (metastring && highlightLinesRangeRegex.test(metastring)) {
     // Tested above
@@ -132,19 +132,19 @@ export default function CodeBlock({
     languageClassName &&
     // Force Prism's language union type to `any` because it does not contain all available languages
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ((languageClassName.replace(/language-/, '') as Language) as any);
+    ((languageClassName.replace(/language-/, "") as Language) as any);
 
   if (!language && prism.defaultLanguage) {
     language = prism.defaultLanguage;
   }
 
   // only declaration OR directive highlight can be used for a block
-  let code = content.replace(/\n$/, '');
+  let code = content.replace(/\n$/, "");
   if (highlightLines.length === 0 && language !== undefined) {
-    let range = '';
+    let range = "";
     const directiveRegex = highlightDirectiveRegex(language);
     // go through line by line
-    const lines = content.replace(/\n$/, '').split('\n');
+    const lines = content.replace(/\n$/, "").split("\n");
     let blockStart;
     // loop through lines
     for (let index = 0; index < lines.length; ) {
@@ -157,18 +157,18 @@ export default function CodeBlock({
           .slice(1)
           .reduce(
             (final: string | undefined, item) => final || item,
-            undefined,
+            undefined
           );
         switch (directive) {
-          case 'highlight-next-line':
+          case "highlight-next-line":
             range += `${lineNumber},`;
             break;
 
-          case 'highlight-start':
+          case "highlight-start":
             blockStart = lineNumber;
             break;
 
-          case 'highlight-end':
+          case "highlight-end":
             range += `${blockStart}-${lineNumber - 1},`;
             break;
 
@@ -182,7 +182,7 @@ export default function CodeBlock({
       }
     }
     highlightLines = rangeParser(range);
-    code = lines.join('\n');
+    code = lines.join("\n");
   }
 
   const handleCopyCode = () => {
@@ -198,28 +198,37 @@ export default function CodeBlock({
       key={String(mounted)}
       theme={prismTheme}
       code={code}
-      language={language}>
-      {({className, style, tokens, getLineProps, getTokenProps}) => (
-        <div className={styles.codeBlockContainer}>
+      language={language}
+    >
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <div className="mb-4 group">
           {codeBlockTitle && (
-            <div style={style} className={styles.codeBlockTitle}>
+            <div
+              style={style}
+              className="p-4 py-3 rounded-t-lg border-b border-emphasis-300 font-medium"
+            >
               {codeBlockTitle}
             </div>
           )}
           <div className={clsx(styles.codeBlockContent, language)}>
             <div
-              /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
               tabIndex={0}
-              className={clsx(className, styles.codeBlock, 'thin-scrollbar', {
-                [styles.codeBlockWithTitle]: codeBlockTitle,
-              })}>
-              <div className={styles.codeBlockLines} style={style}>
+              className={clsx(
+                className,
+                "rounded-lg overflow-auto thin-scrollbar",
+                codeBlockTitle && "rounded-t-none"
+              )}
+            >
+              <div
+                className="p-4 whitespace-pre float-left min-w-full text-sm font-mono print:whitespace-pre-wrap"
+                style={style}
+              >
                 {tokens.map((line, i) => {
-                  if (line.length === 1 && line[0].content === '') {
-                    line[0].content = '\n'; // eslint-disable-line no-param-reassign
+                  if (line.length === 1 && line[0].content === "") {
+                    line[0].content = "\n"; // eslint-disable-line no-param-reassign
                   }
 
-                  const lineProps = getLineProps({line, key: i});
+                  const lineProps = getLineProps({ line, key: i });
 
                   if (highlightLines.includes(i + 1)) {
                     lineProps.className = `${lineProps.className} docusaurus-highlight-code-line`;
@@ -228,7 +237,7 @@ export default function CodeBlock({
                   return (
                     <div key={i} {...lineProps}>
                       {line.map((token, key) => (
-                        <span key={key} {...getTokenProps({token, key})} />
+                        <span key={key} {...getTokenProps({ token, key })} />
                       ))}
                     </div>
                   );
@@ -240,22 +249,28 @@ export default function CodeBlock({
               ref={button}
               type="button"
               aria-label={translate({
-                id: 'theme.CodeBlock.copyButtonAriaLabel',
-                message: 'Copy code to clipboard',
-                description: 'The ARIA label for copy code blocks button',
+                id: "theme.CodeBlock.copyButtonAriaLabel",
+                message: "Copy code to clipboard",
+                description: "The ARIA label for copy code blocks button",
               })}
-              className={clsx(styles.copyButton)}
-              onClick={handleCopyCode}>
+              className={clsx(
+                "opacity-0 group-hover:opacity-100 bg-black bg-opacity-30 rounded-lg text-white cursor-pointer select-none",
+                "transition right-2 top-2 absolute p-2 text-sm leading-tight"
+              )}
+              onClick={handleCopyCode}
+            >
               {showCopied ? (
                 <Translate
                   id="theme.CodeBlock.copied"
-                  description="The copied button label on code blocks">
+                  description="The copied button label on code blocks"
+                >
                   Copied
                 </Translate>
               ) : (
                 <Translate
                   id="theme.CodeBlock.copy"
-                  description="The copy button label on code blocks">
+                  description="The copy button label on code blocks"
+                >
                   Copy
                 </Translate>
               )}
