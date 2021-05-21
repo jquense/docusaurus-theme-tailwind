@@ -55,12 +55,8 @@ function DocItem(props: Props): JSX.Element {
     <>
       <Seo {...{ title, description, keywords, image }} />
 
-      <div className="row">
-        <div
-          className={clsx("col", {
-            [styles.docItemCol]: !hideTableOfContents,
-          })}
-        >
+      <div className="flex w-full">
+        <div className={clsx("pr-4", !hideTableOfContents && "lg:w-3/4")}>
           <DocVersionSuggestions />
           <div className={styles.docItemContainer}>
             <article>
@@ -102,7 +98,7 @@ function DocItem(props: Props): JSX.Element {
           </div>
         </div>
         {!hideTableOfContents && DocContent.toc && (
-          <div className="col col--3">
+          <div className="lg:w-1/3 lg:pl-4">
             <TOC toc={DocContent.toc} />
           </div>
         )}

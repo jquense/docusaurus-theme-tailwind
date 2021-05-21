@@ -173,9 +173,9 @@ function DocSidebarItemLink({
 }) {
   const { href, label } = item;
   const isActive = isActiveSidebarItem(item, activePath);
-  console.log("a", isActive);
+
   return (
-    <Menu.Item className="menu__list-item" key={label}>
+    <Menu.Item key={label}>
       <Menu.Link
         as={Link}
         active={isActive}
@@ -331,9 +331,11 @@ function DocSidebar({
   return (
     <div
       className={clsx(
-        "lg:w-80 lg:flex lg:flex-col lg:max-h-screen sticky top-0 transition-visibility duration-75",
+        "lg:w-80 lg:flex lg:flex-col lg:max-h-screen lg:sticky lg:top-0 lg:transition-visibility lg:duration-75",
         !hideOnScroll && "pt-16",
-        isHidden ? "overflow-hidden invisible opacity-0 h-0" : "lg:h-full"
+        isHidden
+          ? "overflow-hidden lg:invisible lg:opacity-0 lg:h-0"
+          : "lg:h-full"
       )}
     >
       {hideOnScroll && (

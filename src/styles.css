@@ -6,3 +6,11 @@ a {
 }
 
 @import "tailwindcss/utilities";
+
+.max-w-full-navbar {
+  max-height: calc(100vh - (theme("height.16") + theme("margin.8")));
+}
+
+.top-full-navbar {
+  top: calc(theme("height.16") + theme("margin.8"));
+}

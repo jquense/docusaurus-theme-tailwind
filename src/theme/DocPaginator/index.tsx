@@ -5,57 +5,56 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from 'react';
-import Link from '@docusaurus/Link';
-import Translate, {translate} from '@docusaurus/Translate';
-import type {Props} from '@theme/DocPaginator';
+import React from "react";
+import Link from "@docusaurus/Link";
+import Translate, { translate } from "@docusaurus/Translate";
+import type { Props } from "@theme/DocPaginator";
+import Paginator from "../Paginator";
 
 function DocPaginator(props: Props): JSX.Element {
-  const {metadata} = props;
+  const { metadata } = props;
 
   return (
-    <nav
-      className="pagination-nav"
+    <Paginator
       aria-label={translate({
-        id: 'theme.docs.paginator.navAriaLabel',
-        message: 'Docs pages navigation',
-        description: 'The ARIA label for the docs pagination',
-      })}>
-      <div className="pagination-nav__item">
+        id: "theme.docs.paginator.navAriaLabel",
+        message: "Docs pages navigation",
+        description: "The ARIA label for the docs pagination",
+      })}
+    >
+      <Paginator.PrevItem>
         {metadata.previous && (
-          <Link
-            className="pagination-nav__link"
-            to={metadata.previous.permalink}>
-            <div className="pagination-nav__sublabel">
+          <Paginator.Link
+            to={metadata.previous.permalink}
+            subtitle={
               <Translate
                 id="theme.docs.paginator.previous"
-                description="The label used to navigate to the previous doc">
+                description="The label used to navigate to the previous doc"
+              >
                 Previous
               </Translate>
-            </div>
-            <div className="pagination-nav__label">
-              &laquo; {metadata.previous.title}
-            </div>
-          </Link>
+            }
+            title={<>&laquo; {metadata.previous.title}</>}
+          />
         )}
-      </div>
-      <div className="pagination-nav__item pagination-nav__item--next">
+      </Paginator.PrevItem>
+      <Paginator.NextItem>
         {metadata.next && (
-          <Link className="pagination-nav__link" to={metadata.next.permalink}>
-            <div className="pagination-nav__sublabel">
+          <Paginator.Link
+            to={metadata.next.permalink}
+            subtitle={
               <Translate
                 id="theme.docs.paginator.next"
-                description="The label used to navigate to the next doc">
+                description="The label used to navigate to the next doc"
+              >
                 Next
               </Translate>
-            </div>
-            <div className="pagination-nav__label">
-              {metadata.next.title} &raquo;
-            </div>
-          </Link>
+            }
+            title={<>{metadata.next.title} &raquo;</>}
+          />
         )}
-      </div>
-    </nav>
+      </Paginator.NextItem>
+    </Paginator>
   );
 }
 

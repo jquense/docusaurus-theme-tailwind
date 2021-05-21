@@ -22,7 +22,6 @@ import { matchPath } from "@docusaurus/router";
 import { translate } from "@docusaurus/Translate";
 
 import clsx from "clsx";
-import styles from "./styles.module.css";
 import { ThemeClassNames, docVersionSearchTag } from "@docusaurus/theme-common";
 
 type DocPageContentProps = {
@@ -66,7 +65,7 @@ function DocPageContent({
         tag: docVersionSearchTag(pluginId, version),
       }}
     >
-      <div className="grid auto-cols-auto w-full grid-flow-col">
+      <div className="w-full flex">
         {sidebar && (
           <div
             data-doc-sidebar
@@ -102,7 +101,7 @@ function DocPageContent({
 
             {hiddenSidebar && (
               <div
-                className="lg:flex lg:flex-col lg:max-h-screen lg:h-full sticky top-0 transition-opacity duration-75 items-center justify-center"
+                className="lg:flex lg:flex-col lg:max-h-screen lg:h-full sticky top-0 transition-opacity duration-75 items-center justify-center "
                 title={translate({
                   id: "theme.docs.sidebar.expandButtonTitle",
                   message: "Expand sidebar",
@@ -125,21 +124,8 @@ function DocPageContent({
             )}
           </div>
         )}
-        <main
-          className={clsx(
-            "flex w-full"
-            // hiddenSidebarContainer || !sidebar && 'max-w-none'
-          )}
-        >
-          <div
-            className={clsx(
-              "container padding-vert--lg",
-              styles.docItemWrapper,
-              {
-                [styles.docItemWrapperEnhanced]: hiddenSidebarContainer,
-              }
-            )}
-          >
+        <main className={clsx("flex w-full")}>
+          <div className={clsx("lg:container mx-auto px-4 py-8")}>
             <MDXProvider components={MDXComponents}>{children}</MDXProvider>
           </div>
         </main>

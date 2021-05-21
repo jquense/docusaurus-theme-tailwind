@@ -13,14 +13,14 @@ module.exports = {
   projectName: "docusaurus", // Usually your repo name.
   themeConfig: {
     hideableSidebar: true,
-    announcementBar: {
-      id: "support_us", // Any value that will identify this message.
-      content:
-        'We are looking to revamp our docs, please fill <a target="_blank" rel="noopener noreferrer" href="#">this survey</a>',
-      // backgroundColor: "#fafbfc", // Defaults to `#fff`.
-      // textColor: "#091E42", // Defaults to `#000`.
-      isCloseable: true, // Defaults to `true`.
-    },
+    // announcementBar: {
+    //   id: "support_us", // Any value that will identify this message.
+    //   content:
+    //     'We are looking to revamp our docs, please fill <a target="_blank" rel="noopener noreferrer" href="#">this survey</a>',
+    //   // backgroundColor: "#fafbfc", // Defaults to `#fff`.
+    //   // textColor: "#091E42", // Defaults to `#000`.
+    //   isCloseable: false, // Defaults to `true`.
+    // },
     navbar: {
       title: "My Site",
       logo: {
