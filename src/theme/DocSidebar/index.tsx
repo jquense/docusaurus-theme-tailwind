@@ -94,9 +94,8 @@ function DocSidebarItemCategory({
   });
 
   const menuListRef = useRef<HTMLUListElement>(null);
-  const [menuListHeight, setMenuListHeight] = useState<string | undefined>(
-    undefined
-  );
+  const [menuListHeight, setMenuListHeight] =
+    useState<string | undefined>(undefined);
   const handleMenuListHeight = (calc = true) => {
     setMenuListHeight(
       calc ? `${menuListRef.current?.scrollHeight}px` : undefined
@@ -339,7 +338,11 @@ function DocSidebar({
       )}
     >
       {hideOnScroll && (
-        <Logo tabIndex={-1} className="flex items-center mx-4 h-16" />
+        <Logo
+          tabIndex={-1}
+          className="flex items-center mx-4 h-16"
+          imageClassName="h-8 mr-2"
+        />
       )}
       <div
         className={clsx(

@@ -19,7 +19,6 @@ import NavbarItem from "@theme/NavbarItem";
 import Logo from "@theme/Logo";
 import IconMenu from "@theme/IconMenu";
 
-import styles from "./styles.module.css";
 import Menu from "../Menu";
 
 // retrocompatible with v1
@@ -42,7 +41,7 @@ function splitNavItemsByPosition(items) {
 
 function Navbar(): JSX.Element {
   const {
-    navbar: { items, hideOnScroll, style },
+    navbar: { items, hideOnScroll },
     colorMode: { disableSwitch: disableColorModeSwitch },
   } = useThemeConfig();
   const [sidebarShown, setSidebarShown] = useState(false);
@@ -79,8 +78,8 @@ function Navbar(): JSX.Element {
       ref={navbarRef}
       className={clsx(
         "sticky top-0 flex shadow-md z-30 h-16 w-full px-4 py-2 bg-surface",
-        hideOnScroll && styles.navbarHideable,
-        hideOnScroll && !isNavbarVisible && styles.navbarHidden
+        hideOnScroll && "transform duration-100",
+        hideOnScroll && !isNavbarVisible && "-translate-y-16"
       )}
     >
       <div className="w-full flex flex-wrap justify-between items-stretch">
@@ -112,7 +111,7 @@ function Navbar(): JSX.Element {
           ))}
           {!disableColorModeSwitch && (
             <Toggle
-              className={styles.displayOnlyInLargeViewport}
+              className="hidden lg:block"
               checked={isDarkTheme}
               onChange={onToggleChange}
             />
