@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useEffect} from 'react';
+import { useEffect } from "react";
 
-function useLockBodyScroll(lock: boolean = true): void {
+function useLockBodyScroll(lock = true): void {
   useEffect(() => {
-    document.body.style.overflow = lock ? 'hidden' : 'visible';
+    document.body.style.overflow = lock ? "hidden" : "visible";
 
     return () => {
-      document.body.style.overflow = 'visible';
+      document.body.style.overflow = "visible";
     };
   }, [lock]);
 }

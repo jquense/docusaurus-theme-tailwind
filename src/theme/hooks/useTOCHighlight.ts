@@ -12,9 +12,8 @@ function useTOCHighlight(
   linkActiveClassName: string,
   topOffset: number
 ): void {
-  const [lastActiveLink, setLastActiveLink] = useState<
-    HTMLAnchorElement | undefined
-  >(undefined);
+  const [lastActiveLink, setLastActiveLink] =
+    useState<HTMLAnchorElement | undefined>(undefined);
 
   useEffect(() => {
     function setActiveLink() {
@@ -59,9 +58,8 @@ function useTOCHighlight(
         let itemHighlighted = false;
 
         // @ts-expect-error: Must be <a> tags.
-        const links: HTMLCollectionOf<HTMLAnchorElement> = document.getElementsByClassName(
-          linkClassName
-        );
+        const links: HTMLCollectionOf<HTMLAnchorElement> =
+          document.getElementsByClassName(linkClassName);
         while (index < links.length && !itemHighlighted) {
           const link = links[index];
           const { href } = link;

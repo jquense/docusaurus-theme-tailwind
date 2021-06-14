@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *
@@ -8,7 +9,6 @@
 /* eslint-disable import/no-duplicates */
 /* eslint-disable spaced-comment */
 /// <reference types="@docusaurus/module-type-aliases" />
-/// <reference types="@docusaurus/plugin-content-blog" />
 /// <reference types="@docusaurus/plugin-content-docs" />
 /// <reference types="@docusaurus/plugin-content-pages" />
 
@@ -21,6 +21,8 @@ declare module "@theme/AnnouncementBar" {
   const AnnouncementBar: () => JSX.Element | null;
   export default AnnouncementBar;
 }
+
+// ---- BLOG
 
 declare module "@theme/BlogListPaginator" {
   import type { Metadata } from "@theme/BlogListPage";
@@ -70,6 +72,122 @@ declare module "@theme/BlogPostPaginator" {
   const BlogPostPaginator: (props: Props) => JSX.Element;
   export default BlogPostPaginator;
 }
+
+declare module "@theme/BlogPostPage" {
+  import type { TOCItem } from "@docusaurus/types";
+  import type { BlogSidebar } from "@theme/BlogSidebar";
+
+  export type FrontMatter = {
+    readonly title: string;
+    readonly author?: string;
+    readonly image?: string;
+    readonly tags?: readonly string[];
+    readonly keywords?: readonly string[];
+    readonly author_url?: string;
+    readonly authorURL?: string;
+    readonly author_title?: string;
+    readonly authorTitle?: string;
+    readonly author_image_url?: string;
+    readonly authorImageURL?: string;
+    readonly hide_table_of_contents?: boolean;
+  };
+
+  export type Metadata = {
+    readonly title: string;
+    readonly date: string;
+    readonly formattedDate: string;
+    readonly permalink: string;
+    readonly description?: string;
+    readonly editUrl?: string;
+    readonly readingTime?: number;
+    readonly truncated?: string;
+    readonly nextItem?: { readonly title: string; readonly permalink: string };
+    readonly prevItem?: { readonly title: string; readonly permalink: string };
+    readonly tags: readonly {
+      readonly label: string;
+      readonly permalink: string;
+    }[];
+  };
+
+  export type Content = {
+    readonly frontMatter: FrontMatter;
+    readonly metadata: Metadata;
+    readonly toc: readonly TOCItem[];
+    (): JSX.Element;
+  };
+
+  export type Props = {
+    readonly sidebar: BlogSidebar;
+    readonly content: Content;
+  };
+
+  const BlogPostPage: (props: Props) => JSX.Element;
+  export default BlogPostPage;
+}
+
+declare module "@theme/BlogListPage" {
+  import type { Content } from "@theme/BlogPostPage";
+  import type { BlogSidebar } from "@theme/BlogSidebar";
+
+  export type Item = {
+    readonly content: () => JSX.Element;
+  };
+
+  export type Metadata = {
+    readonly blogTitle: string;
+    readonly blogDescription: string;
+    readonly nextPage?: string;
+    readonly page: number;
+    readonly permalink: string;
+    readonly postsPerPage: number;
+    readonly previousPage?: string;
+    readonly totalCount: number;
+    readonly totalPages: number;
+  };
+
+  export type Props = {
+    readonly sidebar: BlogSidebar;
+    readonly metadata: Metadata;
+    readonly items: readonly { readonly content: Content }[];
+  };
+
+  const BlogListPage: (props: Props) => JSX.Element;
+  export default BlogListPage;
+}
+
+declare module "@theme/BlogTagsListPage" {
+  import type { BlogSidebar } from "@theme/BlogSidebar";
+
+  export type Tag = {
+    permalink: string;
+    name: string;
+    count: number;
+    allTagsPath: string;
+    slug: string;
+  };
+
+  export type Props = {
+    readonly sidebar: BlogSidebar;
+    readonly tags: Readonly<Record<string, Tag>>;
+  };
+
+  const BlogTagsListPage: (props: Props) => JSX.Element;
+  export default BlogTagsListPage;
+}
+
+declare module "@theme/BlogTagsPostsPage" {
+  import type { BlogSidebar } from "@theme/BlogSidebar";
+  import type { Tag } from "@theme/BlogTagsListPage";
+  import type { Content } from "@theme/BlogPostPage";
+
+  export type Props = {
+    readonly sidebar: BlogSidebar;
+    readonly metadata: Tag;
+    readonly items: readonly { readonly content: Content }[];
+  };
+}
+
+//  -----------------------------------
 
 declare module "@theme/CodeBlock" {
   export type Props = {
@@ -141,34 +259,34 @@ declare module "@theme/Heading" {
 }
 
 declare module "@theme/hooks/useAnnouncementBar" {
-  export type useAnnouncementBarReturns = {
+  export type UseAnnouncementBarReturns = {
     readonly isAnnouncementBarClosed: boolean;
     readonly closeAnnouncementBar: () => void;
   };
 
-  const useAnnouncementBar: () => useAnnouncementBarReturns;
+  const useAnnouncementBar: () => UseAnnouncementBarReturns;
   export default useAnnouncementBar;
 }
 
 declare module "@theme/hooks/useHideableNavbar" {
-  export type useHideableNavbarReturns = {
+  export type UseHideableNavbarReturns = {
     readonly navbarRef: (node: HTMLElement | null) => void;
     readonly isNavbarVisible: boolean;
   };
 
-  const useHideableNavbar: (hideOnScroll: boolean) => useHideableNavbarReturns;
+  const useHideableNavbar: (hideOnScroll: boolean) => UseHideableNavbarReturns;
   export default useHideableNavbar;
 }
 
 declare module "@theme/hooks/useLocationHash" {
   import type { Dispatch, SetStateAction } from "react";
 
-  export type useLocationHashReturns = readonly [
+  export type UseLocationHashReturns = readonly [
     string,
     Dispatch<SetStateAction<string>>
   ];
 
-  const useLocationHash: (initialHash: string) => useLocationHashReturns;
+  const useLocationHash: (initialHash: string) => UseLocationHashReturns;
   export default useLocationHash;
 }
 
@@ -195,23 +313,23 @@ declare module "@theme/hooks/useScrollPosition" {
 }
 
 declare module "@theme/hooks/useTabGroupChoice" {
-  export type useTabGroupChoiceReturns = {
+  export type UseTabGroupChoiceReturns = {
     readonly tabGroupChoices: { readonly [groupId: string]: string };
     readonly setTabGroupChoices: (groupId: string, newChoice: string) => void;
   };
 
-  const useTabGroupChoice: () => useTabGroupChoiceReturns;
+  const useTabGroupChoice: () => UseTabGroupChoiceReturns;
   export default useTabGroupChoice;
 }
 
 declare module "@theme/hooks/useTheme" {
-  export type useThemeReturns = {
+  export type UseThemeReturns = {
     readonly isDarkTheme: boolean;
     readonly setLightTheme: () => void;
     readonly setDarkTheme: () => void;
   };
 
-  const useTheme: () => useThemeReturns;
+  const useTheme: () => UseThemeReturns;
   export default useTheme;
 }
 

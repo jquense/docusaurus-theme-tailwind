@@ -5,12 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useState, useCallback, useEffect, useRef} from 'react';
-import {useLocation} from '@docusaurus/router';
-import useScrollPosition from '@theme/hooks/useScrollPosition';
-import type {useHideableNavbarReturns} from '@theme/hooks/useHideableNavbar';
+import { useState, useCallback, useEffect, useRef } from "react";
+// @ts-ignore
+import { useLocation } from "@docusaurus/router";
+import useScrollPosition from "@theme/hooks/useScrollPosition";
+import type { UseHideableNavbarReturns } from "@theme/hooks/useHideableNavbar";
 
-const useHideableNavbar = (hideOnScroll: boolean): useHideableNavbarReturns => {
+const useHideableNavbar = (hideOnScroll: boolean): UseHideableNavbarReturns => {
   const location = useLocation();
   const [isNavbarVisible, setIsNavbarVisible] = useState(hideOnScroll);
   const isFocusedAnchor = useRef(false);
@@ -22,7 +23,7 @@ const useHideableNavbar = (hideOnScroll: boolean): useHideableNavbarReturns => {
   }, []);
 
   useScrollPosition(
-    ({scrollY: scrollTop}, {scrollY: lastScrollTop}) => {
+    ({ scrollY: scrollTop }, { scrollY: lastScrollTop }) => {
       if (!hideOnScroll) {
         return;
       }
@@ -52,7 +53,7 @@ const useHideableNavbar = (hideOnScroll: boolean): useHideableNavbarReturns => {
         setIsNavbarVisible(true);
       }
     },
-    [navbarHeight, isFocusedAnchor],
+    [navbarHeight, isFocusedAnchor]
   );
 
   useEffect(() => {

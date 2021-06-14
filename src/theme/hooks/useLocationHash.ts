@@ -5,18 +5,18 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useState, useEffect} from 'react';
-import type {useLocationHashReturns} from '@theme/hooks/useLocationHash';
+import { useState, useEffect } from "react";
+import type { UseLocationHashReturns } from "@theme/hooks/useLocationHash";
 
-function useLocationHash(initialHash: string): useLocationHashReturns {
+function useLocationHash(initialHash: string): UseLocationHashReturns {
   const [hash, setHash] = useState(initialHash);
 
   useEffect(() => {
     const handleHashChange = () => setHash(window.location.hash);
 
-    window.addEventListener('hashchange', handleHashChange);
+    window.addEventListener("hashchange", handleHashChange);
 
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener("hashchange", handleHashChange);
   }, []);
 
   return [hash, setHash];

@@ -5,17 +5,17 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useState, useCallback, useEffect} from 'react';
+import { useState, useCallback, useEffect } from "react";
 
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import type {useThemeReturns} from '@theme/hooks/useTheme';
-import {useThemeConfig, createStorageSlot} from '@docusaurus/theme-common';
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import type { UseThemeReturns } from "@theme/hooks/useTheme";
+import { useThemeConfig, createStorageSlot } from "@docusaurus/theme-common";
 
-const ThemeStorage = createStorageSlot('theme');
+const ThemeStorage = createStorageSlot("theme");
 
 const themes = {
-  light: 'light',
-  dark: 'dark',
+  light: "light",
+  dark: "dark",
 } as const;
 
 type Themes = typeof themes[keyof typeof themes];
@@ -29,16 +29,16 @@ const getInitialTheme = (defaultMode: Themes | undefined): Themes => {
   if (!ExecutionEnvironment.canUseDOM) {
     return coerceToTheme(defaultMode);
   }
-  return coerceToTheme(document.documentElement.getAttribute('data-theme'));
+  return coerceToTheme(document.documentElement.getAttribute("data-theme"));
 };
 
 const storeTheme = (newTheme: Themes) => {
-  createStorageSlot('theme').set(coerceToTheme(newTheme));
+  createStorageSlot("theme").set(coerceToTheme(newTheme));
 };
 
-const useTheme = (): useThemeReturns => {
+const useTheme = (): UseThemeReturns => {
   const {
-    colorMode: {defaultMode, disableSwitch, respectPrefersColorScheme},
+    colorMode: { defaultMode, disableSwitch, respectPrefersColorScheme },
   } = useThemeConfig();
   const [theme, setTheme] = useState(getInitialTheme(defaultMode));
 
@@ -52,7 +52,7 @@ const useTheme = (): useThemeReturns => {
   }, []);
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', coerceToTheme(theme));
+    document.documentElement.setAttribute("data-theme", coerceToTheme(theme));
   }, [theme]);
 
   useEffect(() => {
@@ -76,8 +76,8 @@ const useTheme = (): useThemeReturns => {
     }
 
     window
-      .matchMedia('(prefers-color-scheme: dark)')
-      .addListener(({matches}) => {
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addListener(({ matches }) => {
         setTheme(matches ? themes.dark : themes.light);
       });
   }, []);

@@ -5,16 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useContext} from 'react';
+import { useContext } from "react";
 
-import ThemeContext from '@theme/ThemeContext';
-import type {ThemeContextProps} from '@theme/hooks/useThemeContext';
+import ThemeContext from "@theme/ThemeContext";
+import type { ThemeContextProps } from "@theme/hooks/useThemeContext";
 
 function useThemeContext(): ThemeContextProps {
   const context = useContext<ThemeContextProps | undefined>(ThemeContext);
   if (context == null) {
     throw new Error(
-      '`useThemeContext` is used outside of `Layout` Component. See https://docusaurus.io/docs/api/themes/configuration#usethemecontext.',
+      "`useThemeContext` is used outside of `Layout` Component. See https://docusaurus.io/docs/api/themes/configuration#usethemecontext."
     );
   }
   return context;

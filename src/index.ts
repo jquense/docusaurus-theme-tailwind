@@ -74,7 +74,7 @@ export default function docusaurusThemeClassic(
   const {
     siteDir,
     siteConfig: { themeConfig: roughlyTypedThemeConfig },
-    i18n: { currentLocale, localeConfigs },
+    i18n: { currentLocale, localeConfigs: _ },
   } = context;
   const themeConfig = (roughlyTypedThemeConfig || {}) as ThemeConfig;
   const { colorMode, prism: { additionalLanguages = [] } = {} } = themeConfig;
@@ -136,14 +136,11 @@ export default function docusaurusThemeClassic(
         .map((lang) => `prism-${lang}`)
         .join("|");
 
-      // See https://github.com/facebook/docusaurus/pull/3382
-      const useDocsWarningFilter = (warning: string) =>
-        warning.includes("Can't resolve '@theme-init/hooks/useDocs");
-
       return {
-        stats: {
-          warningsFilter: useDocsWarningFilter,
-        },
+        ignoreWarnings: [
+          // See https://github.com/facebook/docusaurus/pull/3382
+          (e) => e.message.includes("Can't resolve '@theme-init/hooks/useDocs"),
+        ],
         plugins: [
           new ContextReplacementPlugin(
             /prismjs[\\/]components$/,

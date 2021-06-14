@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useEffect, useRef} from 'react';
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import type {ScrollPosition} from '@theme/hooks/useScrollPosition';
+import { useEffect, useRef } from "react";
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import type { ScrollPosition } from "@theme/hooks/useScrollPosition";
 
 const getScrollPosition = (): ScrollPosition => ({
   scrollX: ExecutionEnvironment.canUseDOM ? window.pageXOffset : 0,
@@ -16,7 +16,7 @@ const getScrollPosition = (): ScrollPosition => ({
 
 const useScrollPosition = (
   effect?: (position: ScrollPosition, lastPosition: ScrollPosition) => void,
-  deps = [],
+  deps = []
 ): void => {
   const scrollPosition = useRef(getScrollPosition());
 
@@ -36,9 +36,9 @@ const useScrollPosition = (
     };
 
     handleScroll();
-    window.addEventListener('scroll', handleScroll, opts);
+    window.addEventListener("scroll", handleScroll, opts);
 
-    return () => window.removeEventListener('scroll', handleScroll, opts);
+    return () => window.removeEventListener("scroll", handleScroll, opts);
   }, deps);
 };
 

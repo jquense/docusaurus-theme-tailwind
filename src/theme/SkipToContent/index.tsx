@@ -5,15 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React, {useRef, useEffect} from 'react';
-import Translate from '@docusaurus/Translate';
-import {useLocation} from '@docusaurus/router';
-import styles from './styles.module.css';
+import React, { useRef, useEffect } from "react";
+import Translate from "@docusaurus/Translate";
+// @ts-ignore
+import { useLocation } from "@docusaurus/router";
+import styles from "./styles.module.css";
 
 function programmaticFocus(el: HTMLElement) {
-  el.setAttribute('tabindex', '-1');
+  el.setAttribute("tabindex", "-1");
   el.focus();
-  el.removeAttribute('tabindex');
+  el.removeAttribute("tabindex");
 }
 
 function SkipToContent(): JSX.Element {
@@ -24,8 +25,8 @@ function SkipToContent(): JSX.Element {
     e.preventDefault();
 
     const targetElement: HTMLElement | null =
-      document.querySelector('main:first-of-type') ||
-      document.querySelector('.main-wrapper');
+      document.querySelector("main:first-of-type") ||
+      document.querySelector(".main-wrapper");
 
     if (targetElement) {
       programmaticFocus(targetElement);
@@ -43,7 +44,8 @@ function SkipToContent(): JSX.Element {
       <a href="#main" className={styles.skipToContent} onClick={handleSkip}>
         <Translate
           id="theme.common.skipToMainContent"
-          description="The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation">
+          description="The skip to content label used for accessibility, allowing to rapidly navigate to main content with keyboard tab/enter navigation"
+        >
           Skip to main content
         </Translate>
       </a>

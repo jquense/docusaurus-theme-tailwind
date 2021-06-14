@@ -5,13 +5,13 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useState, useCallback, useEffect} from 'react';
-import type {useTabGroupChoiceReturns} from '@theme/hooks/useTabGroupChoice';
-import {createStorageSlot, listStorageKeys} from '@docusaurus/theme-common';
+import { useState, useCallback, useEffect } from "react";
+import type { UseTabGroupChoiceReturns } from "@theme/hooks/useTabGroupChoice";
+import { createStorageSlot, listStorageKeys } from "@docusaurus/theme-common";
 
-const TAB_CHOICE_PREFIX = 'docusaurus.tab.';
+const TAB_CHOICE_PREFIX = "docusaurus.tab.";
 
-const useTabGroupChoice = (): useTabGroupChoiceReturns => {
+const useTabGroupChoice = (): UseTabGroupChoiceReturns => {
   const [tabGroupChoices, setChoices] = useState<{
     readonly [groupId: string]: string;
   }>({});
@@ -37,7 +37,7 @@ const useTabGroupChoice = (): useTabGroupChoiceReturns => {
   return {
     tabGroupChoices,
     setTabGroupChoices: (groupId: string, newChoice: string) => {
-      setChoices((oldChoices) => ({...oldChoices, [groupId]: newChoice}));
+      setChoices((oldChoices) => ({ ...oldChoices, [groupId]: newChoice }));
       setChoiceSyncWithLocalStorage(groupId, newChoice);
     },
   };

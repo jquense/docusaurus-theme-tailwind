@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "lint": "4c lint src",
-    "build": "4c build",
+    "build": "4c build --no-types",
     "prepublishOnly": "4c build src"
   },
   "gitHooks": {

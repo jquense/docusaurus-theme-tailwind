@@ -5,16 +5,16 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from "react";
 
-import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
-import type {WindowSize} from '@theme/hooks/useWindowSize';
+import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
+import type { WindowSize } from "@theme/hooks/useWindowSize";
 
 const desktopThresholdWidth = 996;
 
 const windowSizes = {
-  desktop: 'desktop',
-  mobile: 'mobile',
+  desktop: "desktop",
+  mobile: "mobile",
 } as const;
 
 function useWindowSize(): WindowSize | undefined {
@@ -40,12 +40,12 @@ function useWindowSize(): WindowSize | undefined {
       setWindowSize(getSize());
     }
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   return windowSize;
 }
 
-export {windowSizes};
+export { windowSizes };
 export default useWindowSize;
