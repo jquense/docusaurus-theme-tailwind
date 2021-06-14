@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "4c lint src",
     "build": "4c build --no-types",
-    "prepublishOnly": "4c build src"
+    "prepublishOnly": "yarn build"
   },
   "gitHooks": {
     "pre-commit": "lint-staged"
