@@ -1,6 +1,6 @@
 {
   "name": "docusaurus-theme-tailwind",
-  "version": "1.0.1-rc.0",
+  "version": "1.0.1-rc.1",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
