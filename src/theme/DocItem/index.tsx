@@ -7,7 +7,7 @@
 
 import React from "react";
 import DocPaginator from "@theme/DocPaginator";
-import DocVersionSuggestions from "@theme/DocVersionSuggestions";
+import DocVersionBanner from "@theme/DocVersionBanner";
 import Seo from "@theme/Seo";
 import LastUpdated from "@theme/LastUpdated";
 import type { Props } from "@theme/DocItem";
@@ -22,7 +22,7 @@ import {
 } from "@theme/hooks/useDocs";
 
 function DocItem(props: Props): JSX.Element {
-  const { content: DocContent } = props;
+  const { content: DocContent, versionMetadata } = props;
   const {
     metadata,
     frontMatter: {
@@ -56,7 +56,7 @@ function DocItem(props: Props): JSX.Element {
 
       <div className="flex w-full">
         <div className={clsx("pr-4", !hideTableOfContents && "lg:w-3/4")}>
-          <DocVersionSuggestions />
+          <DocVersionBanner versionMetadata={versionMetadata} />
           <div className="mx-auto px-2">
             <article>
               {showVersionBadge && (

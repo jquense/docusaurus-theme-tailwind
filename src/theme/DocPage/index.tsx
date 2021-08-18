@@ -37,14 +37,9 @@ function DocPageContent({
   children,
 }: DocPageContentProps): JSX.Element {
   const { siteConfig, isClient } = useDocusaurusContext();
-  const {
-    pluginId,
-    permalinkToSidebar,
-    docsSidebars,
-    version,
-  } = versionMetadata;
-  const sidebarName = permalinkToSidebar[currentDocRoute.path];
-  const sidebar = docsSidebars[sidebarName];
+  const { pluginId, docsSidebars, version } = versionMetadata;
+  const sidebarName = currentDocRoute.sidebar;
+  const sidebar = sidebarName && docsSidebars[sidebarName];
 
   const [hiddenSidebarContainer, setHiddenSidebarContainer] = useState(false);
   const [hiddenSidebar, setHiddenSidebar] = useState(false);
@@ -152,7 +147,7 @@ function DocPage(props: Props): JSX.Element {
       currentDocRoute={currentDocRoute}
       versionMetadata={versionMetadata}
     >
-      {renderRoutes(docRoutes)}
+      {renderRoutes(docRoutes, { versionMetadata })}
     </DocPageContent>
   );
 }

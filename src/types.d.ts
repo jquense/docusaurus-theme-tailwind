@@ -230,11 +230,6 @@ declare module "@theme/DocSidebar" {
   export default DocSidebar;
 }
 
-declare module "@theme/DocVersionSuggestions" {
-  const DocVersionSuggestions: () => JSX.Element;
-  export default DocVersionSuggestions;
-}
-
 declare module "@theme/EditThisPage" {
   export type Props = {
     readonly editUrl: string;
